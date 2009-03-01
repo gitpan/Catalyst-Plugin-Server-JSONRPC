@@ -1,0 +1,11 @@
+0.03  Sun Mar  1 16:30:00 2009
+        - 005_lisMethods.t test added
+        - system.listMethods request fixed
+        - code uploaded to google.code
+
+0.02  Fri Feb  14 06:30:00 2009
+        - Catalyst::View::JSONRPC now render JSON reponse insted of finalize
+
+0.01  Fri Feb  13 12:00:00 2009
+        - Initial release just copied from XMLRPC
+
