@@ -1,3 +1,6 @@
+0.04  Sun Mar  1 16:40:00 2009
+        - META.yaml fixed
+
 0.03  Sun Mar  1 16:30:00 2009
         - 005_lisMethods.t test added
         - system.listMethods request fixed

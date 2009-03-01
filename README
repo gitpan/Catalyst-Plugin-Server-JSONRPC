@@ -302,9 +302,11 @@ ACKNOWLEDGEMENTS
 AUTHORS
     Sergey Nosenko (darknos@cpan.org)
 
+    http://code.google.com/p/catalyst-server-jsonrpc
+
 BUG REPORTS
     Please submit all bugs regarding "Catalyst::Plugin::Server::JSONRPC" to
-    "bug-catalyst-plugin-server-jsonrpc@rt.cpan.org"
+    http://code.google.com/p/catalyst-server-jsonrpc/issues/entry
 
 LICENSE
     This library is free software, you can redistribute it and/or modify it

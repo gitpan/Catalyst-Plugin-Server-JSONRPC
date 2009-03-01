@@ -242,7 +242,7 @@ Alias of $c->req->parameters
 
     package Catalyst::Plugin::Server::JSONRPC;
 
-    our $VERSION = "0.01";
+    our $VERSION = "0.04";
 
     use strict;
     use warnings;
@@ -865,10 +865,12 @@ Michiel Ootjers (michiel@cpan.org)
 
 Sergey Nosenko (darknos@cpan.org)
 
+L<http://code.google.com/p/catalyst-server-jsonrpc>
+
 =head1 BUG REPORTS
 
 Please submit all bugs regarding C<Catalyst::Plugin::Server::JSONRPC> to
-C<bug-catalyst-plugin-server-jsonrpc@rt.cpan.org>
+C<http://code.google.com/p/catalyst-server-jsonrpc/issues/entry>
 
 =head1 LICENSE
 
