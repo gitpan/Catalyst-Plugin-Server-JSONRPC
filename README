@@ -242,13 +242,13 @@ CONFIGURATION
 
         The default is '' (empty).
 
-    seperator
+    separator
         This is a STRING used to split your method on, allowing you to use a
         hierarchy in your method calls.
 
-        For example, with a seperator of "." the method call "demo.echo"
+        For example, with a separator of "." the method call "demo.echo"
         would be forwarded to "/demo/echo". To make "demo_echo" forward to
-        the same path, you would change the seperator to "_",
+        the same path, you would change the separator to "_",
 
         The default is ".", splitting methods on a single "."
 

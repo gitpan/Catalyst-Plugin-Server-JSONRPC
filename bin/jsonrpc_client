@@ -30,7 +30,6 @@ my $req = JSON::RPC::Common::Procedure::Call->inflate({
 
 my $req_string = to_json($req->deflate);
 print $req_string, $/ if $opts{'d'};
-print "\n\n-----------------Output-----------\n";
 
 my $req = HTTP::Request->new( POST => $opts{'u'} );
 $req->header( 'Content-Length'  => length($req_string) );
@@ -39,7 +38,18 @@ $req->content( $req_string );
 my $ua = LWP::UserAgent->new;
 my $res = $ua->request( $req );
 
-my $resp = JSON::from_json( $res->content );
+unless ($res->is_success) {
+    print "\n\n-----------------Error-----------\n";
+    print $res->status_line."\n";
+    exit -1;
+}
+
+print "\n\n-----------------Output-----------\n";
+my $resp;
+
+eval { $resp = JSON::from_json( $res->content ) };
+
+die "Response is not JSON string. Error : $@" if $@;
 
 print ref $resp ? Dumper( $resp  ) : "Error: $resp";
 

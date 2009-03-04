@@ -1,3 +1,9 @@
+0.05  Sun Mar  1 16:40:00 2009
+        - "seperator" renamed to "separator"
+        - config object creation moved to setup instead of setup_engine
+          so now it reads config from the myapp.conf
+        - jsonrpc_client binary fixed
+
 0.04  Sun Mar  1 16:40:00 2009
         - META.yaml fixed
 

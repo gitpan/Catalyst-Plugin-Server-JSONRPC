@@ -76,9 +76,9 @@ sub methods {
                 $self->{paths}->{$path}->[0] : $self->{paths}->{$path};
         $path = "/$path" unless $path eq '/';
         my ($method) = $path =~ m|^/?(.*)$|;
-        my $seperator= $self->config->seperator;
+        my $separator= $self->config->separator;
         my $prefix = $self->config->prefix;
-        $method =~ s|/|$seperator|g;
+        $method =~ s|/|$separator|g;
         $method =~ s|^$prefix\.||g;
         $self->{methods}->{$method} = $action;
     }

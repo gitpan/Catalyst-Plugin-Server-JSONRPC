@@ -9,7 +9,7 @@ our $VERSION = '0.01';
 ### specific config settings
 TestApp->config( {
         debug => 1,
-        jsonrpc => { 'json_encoding' => 'utf-8' }
+        jsonrpc => { 'separator' => '.' }
     } );
 
 TestApp->setup;

@@ -242,7 +242,7 @@ Alias of $c->req->parameters
 
     package Catalyst::Plugin::Server::JSONRPC;
 
-    our $VERSION = "0.04";
+    our $VERSION = "0.05";
 
     use strict;
     use warnings;
@@ -267,11 +267,17 @@ Alias of $c->req->parameters
         $class->server->register_server( 'jsonrpc' => $ServerClass->new($class) );
         $class->NEXT::setup_engine(@_);
     }
-
+    
+    sub setup {
+        my $class = shift;
+        ### config is not yet loaded on setup_engine so load it here
+        $class->server->jsonrpc->config( Catalyst::Plugin::Server::JSONRPC::Config->new($class) );
+        $class->NEXT::setup(@_);
+    }
+    
     ### Will load our customized DispatchTypes into Catalyst
     sub setup_dispatcher {
         my $class = shift;
-
         ### Load custom DispatchTypes
         $class->NEXT::setup_dispatcher(@_);
         $class->dispatcher->preload_dispatch_types(
@@ -424,7 +430,8 @@ Alias of $c->req->parameters
         my $self  = $class->SUPER::new(@_);
 
         $self->c($c);
-        $self->config( Catalyst::Plugin::Server::JSONRPC::Config->new($c) );
+        ### config is not yet loaded on setup_engine
+        #$self->config( Catalyst::Plugin::Server::JSONRPC::Config->new($c) );
         $self->private_methods( {} );
         $self->dispatcher(      {} );
         $self->view_instance( Catalyst::View::JSONRPC->new );
@@ -474,7 +481,7 @@ Alias of $c->req->parameters
     ### XXX add: stash_fields (to encode) stash_exclude_fields (grep -v)
 
     __PACKAGE__->mk_accessors(
-        qw/ path prefix seperator attribute convert_params
+        qw/ path prefix separator attribute convert_params
           show_errors
           /
     );
@@ -490,11 +497,13 @@ Alias of $c->req->parameters
         my $self  = $class->SUPER::new;
 
         $self->prefix( $c->config->{jsonrpc}->{prefix}           || $DefaultPrefix );
-        $self->seperator( $c->config->{jsonrpc}->{seperator}     || $DefaultSep );
+        $self->separator( $c->config->{jsonrpc}->{separator}     || $DefaultSep );
         $self->path( $c->config->{jsonrpc}->{path}               || $DefaultPath );
         $self->show_errors( $c->config->{jsonrpc}->{show_errors} || $DefaultShowErrors );
         $self->attribute($DefaultAttr);
         $self->convert_params(1);
+        use Data::Dumper;
+        $c->log->debug( "CONFIG: " . Dumper($c->config) );
 
         ### cache it
         return $Obj = $self;
@@ -577,7 +586,7 @@ Alias of $c->req->parameters
                 ### do the hard work of dispatching for us
                 my $prefix = $c->server->jsonrpc->config->prefix;
                 my ($sep) = map { qr/$_/ }
-                  map { quotemeta $_ } $c->server->jsonrpc->config->seperator;
+                  map { quotemeta $_ } $c->server->jsonrpc->config->separator;
 
                 ### error checks here
                 if ( $prefix =~ m|^/| ) {
@@ -586,7 +595,7 @@ Alias of $c->req->parameters
                 }
 
                 unless ( UNIVERSAL::isa( $sep, 'Regexp' ) ) {
-                    $c->log->debug( __PACKAGE__ . ": Your seperator is not a " . "Regexp object -- This is not recommended" )
+                    $c->log->debug( __PACKAGE__ . ": Your separator is not a " . "Regexp object -- This is not recommended" )
                       if $c->debug;
                 }
 
@@ -779,14 +788,14 @@ path would be come C</rpc/foo>.
 
 The default is '' (empty).
 
-=item seperator
+=item separator
 
 This is a STRING used to split your method on, allowing you to use
 a hierarchy in your method calls.
 
-For example, with a seperator of C<.> the method call C<demo.echo>
+For example, with a separator of C<.> the method call C<demo.echo>
 would be forwarded to C</demo/echo>.  To make C<demo_echo> forward to the
-same path, you would change the seperator to C<_>,
+same path, you would change the separator to C<_>,
 
 The default is C<.>, splitting methods on a single C<.>
 
