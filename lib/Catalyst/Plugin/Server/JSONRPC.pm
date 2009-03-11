@@ -242,7 +242,7 @@ Alias of $c->req->parameters
 
     package Catalyst::Plugin::Server::JSONRPC;
 
-    our $VERSION = "0.05";
+    our $VERSION = "0.06";
 
     use strict;
     use warnings;
@@ -502,8 +502,6 @@ Alias of $c->req->parameters
         $self->show_errors( $c->config->{jsonrpc}->{show_errors} || $DefaultShowErrors );
         $self->attribute($DefaultAttr);
         $self->convert_params(1);
-        use Data::Dumper;
-        $c->log->debug( "CONFIG: " . Dumper($c->config) );
 
         ### cache it
         return $Obj = $self;
@@ -656,7 +654,7 @@ Alias of $c->req->parameters
     use strict;
     use warnings;
 
-    use parent 'Catalyst::View';
+    use base 'Catalyst::View';
 
     sub process {
         my $self = shift;

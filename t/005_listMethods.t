@@ -55,12 +55,13 @@ my $data = JSON::from_json( $res->content );
 #die Dumper($data);
 ok( !$data->{error},       "   No errors" );
 ok( $data->{result},       "   Got result" );
-ok( ref $data->{result} eq 'ARRAY',       "   Is array" );
+my $is_array = ref $data->{result} eq 'ARRAY';
+ok( $is_array ,       "   Is array. Dump:".Dumper($data) );
 
-my @arr = @{$data->{result}};
-
-ok( scalar(@result) == scalar(@arr) ,       "   Is array" );
-
-for(my $i=0;$i<scalar(@result);$i++){
-    ok( $result[$i] eq $arr[$i] ,       "   all ok " );
+if ( $is_array ) {
+    my @arr = @{$data->{result}};
+    ok( scalar(@result) == scalar(@arr) ,       "   medhods count" );
+    for(my $i=0;$i<scalar(@result);$i++){
+        ok( $result[$i] eq $arr[$i] ,       $result[$i]."  ok " );
+    }
 }
