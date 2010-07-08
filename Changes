@@ -1,3 +1,11 @@
+0.07 08 Jul 2010
+        - Adapt the plugin for Catalyst 5.8
+        - use MRO::Compat and adapt all calls
+        - Fix test suite
+        - The attributes for path and compiled changed in Cat 5.8 
+          in the base classes
+        - leftover keys in write_result_to_response where making all
+          requests die
 0.06 11 Mar 2009
         - replaced 'parent' with 'base' for Catalyst::View::JSONRPC
 0.05  Sun Mar  1 16:40:00 2009
